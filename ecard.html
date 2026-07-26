@@ -1,145 +1,226 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ms">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invitation eCard</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Arial', sans-serif;
-            background-color: #f8f9fa;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Invitation eCard</title>
+<style>
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
-        .ecard-container {
-            max-width: 600px;
-            margin: 50px auto;
-            padding: 20px;
-            text-align: center;
-            background-color: white;
-            border: 2px solid #ccc;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-        }
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(160deg, #ffe4ef 0%, #ffd1e3 45%, #ffc2da 100%);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 50px 16px;
+  }
 
-        .front-page, .rsvp-form-page {
-            padding: 30px;
-        }
+  .card {
+    position: relative;
+    background: #fff5f9;
+    max-width: 720px;
+    width: 100%;
+    border-radius: 20px;
+    padding: 70px 55px;
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(214, 51, 132, 0.18);
+    border: 1px solid #ffd7e8;
+    overflow: hidden;
+  }
 
-        .front-page {
-            background-color: #ffebcc;
-            border-radius: 10px;
-        }
+  .card::before,
+  .card::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, #ffb6d5 0%, transparent 70%);
+    opacity: 0.5;
+  }
 
-        .front-page h1, .front-page h2, .front-page p {
-            margin: 10px 0;
-        }
+  .card::before {
+    width: 220px;
+    height: 220px;
+    top: -90px;
+    left: -90px;
+  }
 
-        .front-page h1 {
-            font-size: 36px;
-            color: #cc6600;
-        }
+  .card::after {
+    width: 260px;
+    height: 260px;
+    bottom: -110px;
+    right: -110px;
+  }
 
-        .invitation-details {
-            font-size: 20px;
-            color: #333;
-            margin: 20px 0;
-            text-align: center;
-        }
+  .frame {
+    position: relative;
+    z-index: 1;
+    border: 1.5px solid #f3a8c9;
+    border-radius: 14px;
+    padding: 45px 30px;
+  }
 
-        .invitation-details h2 {
-            font-size: 30px;
-            color: #4a4a4a;
-            margin-bottom: 5px;
-        }
+  .ornament {
+    font-size: 1.4rem;
+    color: #d63384;
+    letter-spacing: 8px;
+    margin-bottom: 20px;
+  }
 
-        .invitation-details h3 {
-            font-size: 24px;
-            color: #6b6b6b;
-        }
+  .bismillah {
+    font-size: 2.5rem;
+    color: #7a1f4b;
+    margin-bottom: 32px;
+    font-family: 'Traditional Arabic', 'Amiri', serif;
+  }
 
-        .invitation-details p {
-            font-size: 16px;
-            color: #7a7a7a;
-            line-height: 1.5;
-        }
+  .title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #c2447a;
+    margin-bottom: 8px;
+  }
 
-        #open-card-button {
-            background-color: #cc6600;
-            color: white;
-            padding: 10px 20px;
-            font-size: 18px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
-        }
+  .subtitle {
+    font-size: 2.4rem;
+    font-weight: 800;
+    color: #d6336c;
+    line-height: 1.3;
+    margin-bottom: 30px;
+    text-shadow: 0 2px 10px rgba(214, 51, 108, 0.15);
+  }
 
-        #open-card-button:hover {
-            background-color: #b35900;
-        }
+  .divider {
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #e8639e, transparent);
+    margin: 0 auto 30px auto;
+  }
 
-        .rsvp-form-page h2 {
-            color: #cc6600;
-        }
+  .date {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #7a1f4b;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
 
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-top: 20px;
-        }
+  .time {
+    font-size: 1.05rem;
+    color: #a94b76;
+    margin-bottom: 30px;
+  }
 
-        label {
-            text-align: left;
-            font-weight: bold;
-        }
+  .address {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #7a1f4b;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    padding: 18px 20px;
+    background: #ffe9f2;
+    border-radius: 12px;
+    display: inline-block;
+  }
 
-        input, select, button {
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
+  .map-links {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+  }
 
-        button[type="submit"] {
-            background-color: #4CAF50;
-            color: white;
-            cursor: pointer;
-        }
+  .map-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-decoration: none;
+    padding: 10px 22px;
+    border-radius: 30px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
 
-        button[type="submit"]:hover {
-            background-color: #45a049;
-        }
+  .map-btn.gmap {
+    background: #ffffff;
+    color: #d6336c;
+    border: 1.5px solid #f3a8c9;
+  }
 
-        #rsvp-thank-you {
-            margin-top: 20px;
-            font-size: 18px;
-            color: #4CAF50;
-        }
-    </style>
+  .map-btn.waze {
+    background: #d6336c;
+    color: #ffffff;
+    border: 1.5px solid #d6336c;
+  }
+
+  .map-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(214, 51, 108, 0.25);
+  }
+
+  .dua {
+    font-style: italic;
+    color: #a94b76;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 600px) {
+    .card { padding: 45px 22px; }
+    .frame { padding: 35px 18px; }
+    .bismillah { font-size: 1.9rem; }
+    .subtitle { font-size: 1.8rem; }
+    .address { font-size: 1rem; }
+  }
+</style>
 </head>
 <body>
-       <div class="ecard-container">
-        <div id="front-page" class="front-page">
-            <div class="invitation-details">
-                <h2>بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</h2>
-                <h2>Jemputan Majlis</h2>
-                <h1>Doa Selamat & Kenduri Kesyukuran</h1>
-                
-                <p><strong>SABTU, 14th SEPTEMBER 2024</strong><br>12.00 tengah hari - 4 petang</p>
-                <p><strong>NO 1283 JALAN 1D/2, BANDAR BARU SUNGAI BULOH</strong><br><strong>47000 SUNGAI BULOH, SELANGOR</strong></p>
-                <p><i>Semoga kehadiran Tuan dan Puan dapat memeriahkan lagi majlis kami dan membuka pintu kerahmatan, keampunan dan keberkatan dari Allah SWT ke atas kita semua.</i></p>
-            </div>
-            <a id="open-card-button" href="https://docs.google.com/forms/d/e/1FAIpQLScHHopcQAfEceY2YcGG8bWhWEoZgJPRJUuENaHEeiKWAYty7Q/viewform?usp=sf_link">Open Invitation</a>
-        </div>
-    </div>
 
-    <!-- Audio -->
-    <audio id="invitation-sound">
-        <source src="invitation.ecard.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
+  <div class="card">
+    <div class="frame">
+      <div class="ornament">✦ ✦ ✦</div>
+      <div class="bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+
+      <div class="title">Jemputan Majlis</div>
+      <div class="subtitle">Doa Selamat &amp; Kenduri Kesyukuran</div>
+
+      <div class="divider"></div>
+
+      <div class="date">SABTU, 29 OGOS 2026</div>
+      <div class="time">12.00 tengah hari - 4 petang</div>
+
+      <div class="address">
+        NO 1283 JALAN 1D/2, BANDAR BARU SUNGAI BULOH<br>
+        47000 SUNGAI BULOH, SELANGOR
+      </div>
+
+      <div class="map-links">
+        <a href="https://www.google.com/maps/search/?api=1&query=NO+1283+JALAN+1D%2F2%2C+BANDAR+BARU+SUNGAI+BULOH%2C+47000+SUNGAI+BULOH%2C+SELANGOR" target="_blank" rel="noopener" class="map-btn gmap">
+          📍 Google Maps
+        </a>
+        <a href="https://waze.com/ul?q=NO%201283%20JALAN%201D%2F2%2C%20BANDAR%20BARU%20SUNGAI%20BULOH%2C%2047000%20SUNGAI%20BULOH%2C%20SELANGOR&navigate=yes" target="_blank" rel="noopener" class="map-btn waze">
+          🚗 Waze
+        </a>
+      </div>
+
+      <p class="dua">
+        Semoga kehadiran Tuan dan Puan dapat memeriahkan lagi majlis kami dan
+        membuka pintu kerahmatan, keampunan dan keberkatan dari Allah SWT ke
+        atas kita semua.
+      </p>
+    </div>
+  </div>
+
 </body>
 </html>
